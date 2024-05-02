@@ -23,3 +23,9 @@
     text-wrap: balance;
   }
 }
+
+.background-image{
+  background-image: url(../public/photo/backgroundLoginRegister.png);
+  background-size: cover;
+  background-position: center;
+}

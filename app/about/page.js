@@ -75,25 +75,25 @@ export default function About(){
                 <div className="py-4 px-2 mx-auto max-w-screen-xl sm:py-4 lg:px-6">
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 h-full">
                         <div className="col-span-2 sm:col-span-1 md:col-span-2  h-auto md:h-full flex flex-col">
-                            <a href="/reservation" className="group relative flex flex-col overflow-hidden rounded-lg px-4 pb-4 pt-40 flex-grow">
+                            <a href="/food" className="group relative flex flex-col overflow-hidden rounded-lg px-4 pb-4 pt-40 flex-grow">
                                 <img src="https://cdn.pixabay.com/photo/2022/06/05/00/38/dinner-7243061_1280.jpg" alt="" className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out" />
                                 <div className="absolute inset-0 bg-gradient-to-b from-gray-900/25 to-gray-900/5"></div>
                                 <h3 className="z-10 text-2xl font-medium text-white absolute top-0 left-0 p-4 xs:text-xl md:text-3xl">Principal</h3>
                             </a>
                         </div>
                         <div className="col-span-2 sm:col-span-1 md:col-span-2 ">
-                            <a href="/reservation" className="group relative flex flex-col overflow-hidden rounded-lg px-4 pb-4 pt-40 mb-4">
+                            <a href="/food" className="group relative flex flex-col overflow-hidden rounded-lg px-4 pb-4 pt-40 mb-4">
                                 <img src="https://cdn.pixabay.com/photo/2016/08/11/20/59/rocoto-1586775_1280.jpg" alt="" className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out" />
                                 <div className="absolute inset-0 bg-gradient-to-b from-gray-900/25 to-gray-900/5"></div>
                                 <h3 className="z-10 text-2xl font-medium text-white absolute top-0 left-0 p-4 xs:text-xl md:text-3xl">Entradas</h3>
                             </a>
                             <div className="grid gap-4 grid-cols-2 sm:grid-cols-2 lg:grid-cols-2">
-                                <a href="/reservation" className="group relative flex flex-col overflow-hidden rounded-lg px-4 pb-4 pt-40">
+                                <a href="/food" className="group relative flex flex-col overflow-hidden rounded-lg px-4 pb-4 pt-40">
                                     <img src="https://images.unsplash.com/photo-1457666134378-6b77915bd5f2?q=80&w=1634&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out" />
                                     <div className="absolute inset-0 bg-gradient-to-b from-gray-900/25 to-gray-900/5"></div>
                                     <h3 className="z-10 text-2xl font-medium text-white absolute top-0 left-0 p-4 xs:text-xl md:text-3xl">Postres</h3>
                                 </a>
-                                <a href="/reservation" className="group relative flex flex-col overflow-hidden rounded-lg px-4 pb-4 pt-40">
+                                <a href="/food" className="group relative flex flex-col overflow-hidden rounded-lg px-4 pb-4 pt-40">
                                     <img src="https://plus.unsplash.com/premium_photo-1661342430103-778ac87489bc?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out" />
                                     <div className="absolute inset-0 bg-gradient-to-b from-gray-900/25 to-gray-900/5"></div>
                                     <h3 className="z-10 text-2xl font-medium text-white absolute top-0 left-0 p-4 xs:text-xl md:text-3xl">Vinos</h3>
@@ -101,7 +101,7 @@ export default function About(){
                             </div>
                         </div>
                         <div className="col-span-2 sm:col-span-1 md:col-span-1 h-auto md:h-full flex flex-col">
-                            <a href="/reservation" className="group relative flex flex-col overflow-hidden rounded-lg px-4 pb-4 pt-40 flex-grow">
+                            <a href="/food" className="group relative flex flex-col overflow-hidden rounded-lg px-4 pb-4 pt-40 flex-grow">
                                 <img src="https://images.pexels.com/photos/338713/pexels-photo-338713.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out" />
                                 <div className="absolute inset-0 bg-gradient-to-b from-gray-900/25 to-gray-900/5"></div>
                                 <h3 className="z-10 text-2xl font-medium text-white absolute top-0 left-0 p-4 xs:text-xl md:text-3xl">Bebidas</h3>

@@ -4,7 +4,7 @@ import { SignUp } from "@clerk/nextjs";
 export default function SignUpPage(){
     return(
         <>
-            <div className="flex justify-center p-12">
+            <div className="background-image flex justify-center p-40 ">
                 <SignUp/>
             </div>
         </>

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { format } from 'date-fns';
-
+import Slider from "@/components/slider/slider";
 
 export default function Food(){
 
@@ -22,9 +22,10 @@ export default function Food(){
 
     return(
         <>
-
             <div className="bg-stone-200 flex-1 p-5 h-screen overflow-auto">
                 <div>
+                    {/* Slider */}
+                    <Slider/>
                     {/* TITULO */}
                     <span className="flex items-center">
                         <span className="h-px flex-1 bg-red-700"></span>
