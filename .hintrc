@@ -8,7 +8,9 @@
       {
         "ignore": [
           "-webkit-text-size-adjust",
-          "backdrop-filter"
+          "backdrop-filter",
+          "-webkit-tap-highlight-color",
+          "width: fit-content"
         ]
       }
     ]

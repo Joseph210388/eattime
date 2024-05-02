@@ -3,26 +3,39 @@ import React, { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { format } from 'date-fns';
 import Slider from "@/components/slider/slider";
+import { getAllDish } from "@/backend/actions/dish";
+import DishCard from "@/components/dishcard/dishcard";
+
 
 export default function Food(){
 
     const { user } = useUser();
     const [fechaActual, setFechaActual] = useState(new Date());
+    const [dishes, setDishes] = useState([]);
+
+    
 
     useEffect(() => {
         const intervalo = setInterval(() => {
             // Actualizar la fecha cada segundo
             setFechaActual(new Date());
         }, 1000);
+        
+        const getDish = async ()=>{
+            const dishesList = await getAllDish();
+            dishesList && setDishes(dishesList);
+        };
 
+        getDish();
 
         // Limpiar el intervalo cuando el componente se desmonte
         return () => clearInterval(intervalo);
     }, []);
 
+    
     return(
         <>
-            <div className="bg-stone-200 flex-1 p-5 h-screen overflow-auto">
+            <div className="bg-stone-200 flex-1 p-5 ">
                 <div>
                     {/* Slider */}
                     <Slider/>
@@ -41,10 +54,13 @@ export default function Food(){
                     </div>
                 </div>
                 {/* Platilos disponibles */}
-                <div className="">
-                    {/* Filtros */}
-
-                    {/* para modificar los platillos hay que ir a foods componets */}
+                <div>
+                    <h2 className="py-3 text-2xl font-semibold underline decoration-red-700">Platillos disponibles:</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
+                    {dishes.map(dish => (
+                        <DishCard key={dish._id} dish={dish}/>
+                    ))}
+                </div>
                 </div>
             </div>
         </>

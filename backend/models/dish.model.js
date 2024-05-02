@@ -1,4 +1,5 @@
-import {Schema, model, models} from "mongoose";
+import { Schema, model, models} from "mongoose";
+
 
 const dishSchema = new Schema ({
     name: {
@@ -10,7 +11,7 @@ const dishSchema = new Schema ({
         required: true
     },
     price: {
-        type: Number,
+        type: String,
         required: true
     },
     image: {
@@ -24,9 +25,13 @@ const dishSchema = new Schema ({
     stock: {
         type: Number,
         required: true
+    },
+    ingredients:{
+        type: [String],
+        required:true
     }
 });
 
-const Dish =models.Dish || model("Dish", dishSchema);
+const Dish =models.Dish||  model("Dish", dishSchema);
 
 export default Dish;
