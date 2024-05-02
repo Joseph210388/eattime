@@ -45,7 +45,7 @@ export default function Slider(){
     return(
         <>
             {/* slider */}
-            <div className="w-full h-[550px] w-full m-auto py-3 relative">
+            <div className="w-full h-[550px] m-auto py-3 relative">
                 <div
                 style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
                 className="w-full h-full rounded-2xl bg-center bg-cover duration-500"
