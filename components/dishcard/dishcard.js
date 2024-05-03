@@ -1,19 +1,20 @@
 'use client';
 
 import React from "react";
+import Link from "next/link";
 
 export default function DishCard({dish}){
     return(
 
         <>
             <div  className="group relative block overflow-hidden">
-                <a href="#">
+                <Link href={`/dish/${dish._id}`}>
                     <img
                         src={dish.image}
                         alt=""
                         className="h-64 w-full rounded-t-xl object-cover transition duration-500 group-hover:scale-105 sm:h-72"
                     />
-                </a>
+                </Link>
 
                 <div className="relative border rounded-b-xl border-gray-100 bg-white p-6">
                     <span className="whitespace-nowrap rounded-xl bg-red-800 text-white px-3 py-1.5 text-xs font-medium"> {dish.category} </span>
