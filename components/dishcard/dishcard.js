@@ -21,9 +21,9 @@ export default function DishCard({dish}){
                     
                     
                         <h3 className="mt-4 text-lg font-medium  text-gray-900">
-                            <a href="" className="hover:text-red-700 hover:underline ">
+                            <Link href={`/dish/${dish._id}`} className="hover:text-red-700 hover:underline ">
                                 {dish.name}
-                            </a>
+                            </Link>
                         </h3>
                     
                     <p className="mt-1.5 text-sm text-gray-700">{dish.price}€</p>
