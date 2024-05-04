@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { format } from 'date-fns';
 import Slider from "../../components/slider/slider";
-import { getAllDish } from "@/backend/actions/dish";
-import DishCard from "@/components/dishcard/dishcard";
+import { getAllDish } from "../../backend/actions/dish";
+import DishCard from "../../components/dishcard/dishcard";
 
 
 export default function Food(){

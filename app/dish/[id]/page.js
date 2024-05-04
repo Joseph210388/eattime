@@ -1,6 +1,6 @@
 
 import React from "react";
-import { getDishById } from "@/backend/actions/dish";
+import { getDishById } from "../../../backend/actions/dish";
 
 
 
