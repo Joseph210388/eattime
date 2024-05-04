@@ -19,7 +19,7 @@ const UserSchema = new Schema ({
         type: String,
         required: true,
     },
-    picture: {
+    photo: {
         type: String,
         required: true,
     },
@@ -29,6 +29,6 @@ const UserSchema = new Schema ({
     }]
 })
 
-const User = models.user || model('user', UserSchema)
+const User = models.User || model('User', UserSchema)
 
 export default User;
