@@ -11,11 +11,6 @@ const UserSchema = new Schema ({
         required: true,
         unique: true
     },
-    username: {
-        type: String,
-        required: true,
-        unique: true
-    },
     firstName: {
         type: String,
         required: true,
@@ -24,12 +19,16 @@ const UserSchema = new Schema ({
         type: String,
         required: true,
     },
-    photo: {
+    picture: {
         type: String,
         required: true,
-    }
+    },
+    reservation: [{
+        type: Schema.Types.ObjectId, 
+        ref: "Reservation"
+    }]
 })
 
-const User = models.User || model('user', UserSchema)
+const User = models.user || model('user', UserSchema)
 
 export default User;

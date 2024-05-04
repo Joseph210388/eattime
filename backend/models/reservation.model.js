@@ -1,19 +1,23 @@
 import { Schema, model, models } from "mongoose";
+import Dish from './dish.model';
 
 const reservationSchema = new Schema({
+    
+    dishes: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Dish',
+        required: true
+    }],
+    
     total_price: {
         type: Number,
         required: true,
         min: 0
     },
-    time: {
-        type: String,
+    table: {
+        type: Schema.Types.ObjectId,
+        ref: 'Table',
         required: true
-    },
-    number_of_person: {
-        type: Number,
-        required: true,
-        min: 1
     },
     date: {
         type: Date,

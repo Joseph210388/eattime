@@ -8,7 +8,6 @@ import { getDishById } from "@/backend/actions/dish";
 const DishDetailPage= async({params: {id}}) => {
     
     const dish = await getDishById(id);
-    
 
     return (
         <div className="my-24">
