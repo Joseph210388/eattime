@@ -14,9 +14,8 @@ const reservationSchema = new Schema({
         required: true,
         min: 0
     },
-    table: {
-        type: Schema.Types.ObjectId,
-        ref: 'Table',
+    numberOfPeople: {
+        type: Number,
         required: true
     },
     date: {
