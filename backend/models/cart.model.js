@@ -1,9 +1,7 @@
 import { Schema, model, models } from "mongoose";
-import Dish from './dish.model';
 import User from './user.model';
 
-const reservationSchema = new Schema({
-    
+const cartSchema = new Schema({
     userId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
@@ -20,22 +18,9 @@ const reservationSchema = new Schema({
             required: true,
             default: 1
         }
-    }],
-    total_price: {
-        type: Number,
-        required: true,
-        min: 0
-    },
-    numberOfPeople: {
-        type: Number,
-        required: true
-    },
-    date: {
-        type: Date,
-        required: true
-    }
+    }]
 });
 
-const Reservation =models.Reservation || model("Reservation", reservationSchema);
+const Cart = models.Cart || model("Cart", cartSchema);
 
-export default Reservation;
+export default Cart;

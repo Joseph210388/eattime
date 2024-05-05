@@ -1,6 +1,7 @@
 
 import React from "react";
 import { getDishById } from "../../../backend/actions/dish";
+import AddToCartButton from "../../../components/addDishButton/addDishButton";
 
 
 
@@ -39,11 +40,8 @@ const DishDetailPage= async({params: {id}}) => {
                             <hr></hr>
                             <div className=" m-2 flex items-center justify-between">
                                 <p className="title-font font-medium text-3xl text-gray-900">{dish.price}€</p>
-                                <button
-                                    className="block w-fit rounded-xl bg-red-800 text-white p-4 text-sm font-medium transition hover:scale-105"
-                                >
-                                    Add to Cart
-                                </button>
+                                {/* boton para añadir un platillo */}
+                                <AddToCartButton dish={dish} />
                             </div>
                         </div>
                         
