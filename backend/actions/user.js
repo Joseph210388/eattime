@@ -13,7 +13,6 @@ export async function createUser (user){
         /* crea un carrito asociado al usaurio */
         const newCart = await Cart.create({ userId: newUser._id });
 
-
         return JSON.parse(JSON.stringify(newUser));
     }catch(error){
         console.log(error);

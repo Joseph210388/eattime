@@ -1,4 +1,6 @@
 import { Schema, model, models } from "mongoose";
+import Reservation from "./reservation.model";
+import Cart from "./cart.model";
 
 const UserSchema = new Schema ({
     clerkId: {

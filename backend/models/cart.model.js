@@ -1,5 +1,6 @@
 import { Schema, model, models } from "mongoose";
 import User from './user.model';
+import Dish from "./dish.model";
 
 const cartSchema = new Schema({
     userId: {
@@ -17,6 +18,22 @@ const cartSchema = new Schema({
             type: Number,
             required: true,
             default: 1
+        },
+        dishName: {
+            type: String,
+            required: true
+        },
+        dishImage: {
+            type: String,
+            required: true
+        },
+        dishPrice: {
+            type: Number,
+            required: true
+        },
+        dishCategory: {
+            type: String,
+            required: true
         }
     }]
 });
