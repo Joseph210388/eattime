@@ -2,22 +2,13 @@
 
 import React from "react";
 import { getDishById } from "../../../backend/actions/dish";
-import {addDishToCart} from "../../../backend/actions/cart";
-
+import AddToCartButton from "../../../components/addToCartButton/addtocartbutton";
 
 const DishDetailPage= async({params: {id}}) => {
     
+    
     const dish = await getDishById(id);
-
-    const handleAddToCart = async () => {
-        try {
-            await addDishToCart(dish._id); // Llamamos a la función para añadir al carrito con el ID del platillo
-            alert("Platillo añadido al carrito exitosamente");
-        } catch (error) {
-            console.error("Error al añadir platillo al carrito:", error);
-            alert("Error al añadir platillo al carrito");
-        }
-    };
+    
     
 
     return (
@@ -50,12 +41,7 @@ const DishDetailPage= async({params: {id}}) => {
                             <hr></hr>
                             <div className=" m-2 flex items-center justify-between">
                                 <p className="title-font font-medium text-3xl text-gray-900">{dish.price}€</p>
-                                <button
-                                    onClick={handleAddToCart}
-                                    className="block w-fit rounded-xl bg-red-800 text-white p-4 text-sm font-medium transition hover:scale-105"
-                                >
-                                    Add to Cart
-                                </button>
+                                <AddToCartButton dishId={dish._id}/>
                             </div>
                         </div>
                         

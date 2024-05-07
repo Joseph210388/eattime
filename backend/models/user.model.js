@@ -23,10 +23,10 @@ const UserSchema = new Schema ({
         type: String,
         required: true,
     },
-    cardId: {
+    cartId: [{
         type: Schema.Types.ObjectId,
         ref: "Cart"
-    },
+    }],
     reservation: [{
         type: Schema.Types.ObjectId, 
         ref: "Reservation"

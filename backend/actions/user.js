@@ -12,13 +12,7 @@ export async function createUser (user){
         const newUser = await User.create(user);
 
         // Crear un carrito asociado al nuevo usuario
-        const newCart = await Cart.create({ userId: newUser._id, items: [] });
-        await newCart.save();
-
-        // Asignar el ID del carrito al campo 'cart' del usuario
-        newUser.cart = newCart._id;
-        await newUser.save();
-        
+        const newCart = await Cart.create({clerkIdUser: newUser.clerkId, items: [] });
 
         return JSON.parse(JSON.stringify(newUser));
     }catch(error){

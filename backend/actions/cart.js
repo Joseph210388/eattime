@@ -1,62 +1,79 @@
 'use server';
 import { mongoConnect } from "../connection";
-import User from "../models/user.model";
 import Dish from "../models/dish.model";
 import Cart from "../models/cart.model"
 
 /* obtener todos los platillos en cart */
-export async function getCartItems(clerkId) {
-    try {
-        /* hacer la conexion */
-        await mongoConnect();
+export async function getCartItems(userId) {
+  try {
+      // Hace la conexión a la base de datos
+      await mongoConnect();
 
-        /* Busca al usuario por su id */
-        const user = await User.findById(clerkId);
+      // Busca el carrito del usuario
+      const cart = await Cart.findOne({ userId }).populate('items.dishId');
+      
+      // Si no se encuentra el carrito o está vacío, retorna un arreglo vacío
+      if (!cart || !cart.items.length) {
+          return [];
+      }
 
-        if (!user || !user.cart) {
-            throw new Error("No se encontró el carrito del usuario");
-        }
-        /* Devolver los items del carrito del usuario */
-        return user.cart;
-    }catch{
-        console.error("Error al obtener los platillos del carrito:", error);
-        throw error;
-    }
+      // Retorna los platillos del carrito
+      return cart.items.map(item => ({
+          dishId: item.dishId._id,
+          dishName: item.dishName,
+          dishImage: item.dishImage,
+          dishPrice: item.dishPrice,
+          dishCategory: item.dishCategory,
+          quantity: item.quantity
+      }));
+  } catch (error) {
+      console.log(error);
+      throw new Error('Error al obtener los platillos del carrito.');
+  }
 }
 
-/* Añadir un platillo al carrito */
-export async function addDishToCart(dishId) {
-    try {
-      await mongoConnect(); // Conectar a la base de datos
+// Función para añadir un platillo al carrito
+export async function addDishToCart(userId,id) {
+  try {
+      // Hace la conexión a la base de datos
+      await mongoConnect();
 
-      // Buscar al usuario 
-        const user = await User.findById();
-        if (!user) {
-            console.error("Usuario no encontrado con el id:", user);
-            throw new Error("Usuario no encontrado");
-        }
+      // Verifica si el platillo existe
+      const dish = await Dish.findOne({_id: id});
+      if (dish === null) {
+          throw new Error('Platillo no encontrado.');
+      }
 
-        // Buscar el platillo por su ID
-        const dishToAdd = await Dish.findById(dishId);
-        if (!dishToAdd) {
-            throw new Error("El platillo no existe");
-        }
+      // Busca el carrito del usuario
+      let cart = await Cart.findOne({ userId });
 
-        // Añadir el plato al carrito del usuario
-        cart.items.push({
-            dishId: dishToAdd._id,
-            quantity: 1,
-            dishName: dishToAdd.name,
-            dishImage: dishToAdd.image,
-            dishPrice: dishToAdd.price,
-            dishCategory: dishToAdd.category
-        });
+      // Si el carrito no existe, lo crea
+      if (!cart) {
+          cart = await Cart.create({ userId, items: [] });
+      }
 
-        await cart.save();
-        return cart.items;
-    } catch (error) {
-      console.error("Error al agregar plato al carrito:", error);
-    } finally {
-      console.clear(); // Limpiar la consola
-    }
+      // Verifica si el platillo ya está en el carrito
+      const existingItemIndex = cart.items.findIndex(item => String(item.dishId) === id);
+
+      // Si el platillo ya está en el carrito, actualiza la cantidad
+      if (existingItemIndex !== -1) {
+          cart.items[existingItemIndex].quantity += quantity;
+      } else {
+          // Si el platillo no está en el carrito, lo añade
+          cart.items.push({
+              dishId: dish._id,
+              dishName: dish.name,
+              dishImage: dish.image,
+              dishPrice: dish.price,
+              dishCategory: dish.category,
+              quantity
+          });
+      }
+
+      // Retorna el carrito actualizado
+      return cart;
+  } catch (error) {
+      console.log(error);
+      throw new Error('Error al añadir el platillo al carrito.');
   }
+}
