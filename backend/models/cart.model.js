@@ -2,20 +2,10 @@ import { Schema, model, models } from "mongoose";
 
 const CartSchema = new Schema({
     userId: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
+        type: String,
         required: true
     },
-    clerkIdUser: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    userNameCart:{
-        type :String,
-        required: true,
-        unique: true
-    },
+    
     items: [{
         dishId: {
             type: Schema.Types.ObjectId,

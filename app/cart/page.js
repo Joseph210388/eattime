@@ -2,17 +2,20 @@
 
 import React, { useEffect, useState } from "react";
 import { getCartItems } from "../../backend/actions/cart";
+import { useUser } from "@clerk/nextjs";
 
 
 export default function Cart(){
 
     const [cartItems, setCartItems] = useState([]);
+    const { user } = useUser();
+    const userId = user?.id;
 
     useEffect(() => {
         async function fetchCartItems() {
             try {
-                if (cartItems.length === 0) {
-                    const items = await getCartItems(); // Obtener los platillos del carrito
+                if (cartItems.length === 0 && userId) {
+                    const items = await getCartItems(userId); // Obtener los platillos del carrito
                     setCartItems(items);
                 }
             } catch (error) {
@@ -20,7 +23,7 @@ export default function Cart(){
             }
         }
         fetchCartItems();
-    }, []); // Ahora el useEffect se ejecuta cuando cambia cartItems, pero no en el montaje inicial
+    }, [userId]); // Ahora el useEffect se ejecuta cuando cambia cartItems, pero no en el montaje inicial
     const calculateTotalPriceDish =(dishPrice, quantity) =>{
         return (dishPrice  * quantity).toFixed(2);
     };
@@ -43,7 +46,7 @@ export default function Cart(){
                                         <p className="text-gray-500">{items.dishCategory}</p>
                                     </div>
                                     <p className="text-gray-900">
-                                        {calculateTotalPriceDish(items)}€</p>
+                                        {calculateTotalPriceDish(items.dishPrice, items.quantity)}€</p> {/* Pasar dishPrice y quantity como argumentos */}
                                 </div>
                             </li>
                         ))}

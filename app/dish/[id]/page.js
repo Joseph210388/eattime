@@ -10,7 +10,6 @@ const DishDetailPage= async({params: {id}}) => {
     const dish = await getDishById(id);
     
     
-
     return (
         <div className="my-24">
             <div className="m-8 w-fit">
