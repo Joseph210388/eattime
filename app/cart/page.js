@@ -11,17 +11,19 @@ export default function Cart(){
     useEffect(() => {
         async function fetchCartItems() {
             try {
-                const items = await getCartItems(); // Obtener los platillos del carrito
-                setCartItems(items);
+                if (cartItems.length === 0) {
+                    const items = await getCartItems(); // Obtener los platillos del carrito
+                    setCartItems(items);
+                }
             } catch (error) {
                 console.error("Error al obtener los platillos del carrito:", error);
             }
         }
-    
-        if (cartItems.length === 0) { // Agregar esta condición para evitar llamadas recursivas
-            fetchCartItems();
-        }
-    }, [cartItems]); // Ahora el useEffect se ejecuta cuando cambia cartItems, pero no en el montaje inicial
+        fetchCartItems();
+    }, []); // Ahora el useEffect se ejecuta cuando cambia cartItems, pero no en el montaje inicial
+    const calculateTotalPriceDish =(dishPrice, quantity) =>{
+        return (dishPrice  * quantity).toFixed(2);
+    };
     
 
     return(
@@ -36,10 +38,12 @@ export default function Cart(){
                             <li key={index}>
                                 <div className="flex items-center justify-between border-b border-gray-300 py-2">
                                     <div>
-                                        <p className="text-gray-900">{items.dishName}</p>
+                                        
+                                        <p className="text-gray-900">{items.quantity}X {items.dishName}</p>
                                         <p className="text-gray-500">{items.dishCategory}</p>
                                     </div>
-                                    <p className="text-gray-900">{items.dishPrice}€</p>
+                                    <p className="text-gray-900">
+                                        {calculateTotalPriceDish(items)}€</p>
                                 </div>
                             </li>
                         ))}
