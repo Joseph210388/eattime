@@ -2,15 +2,16 @@
 import { mongoConnect } from "../connection";
 import User from "../models/user.model";
 import Dish from "../models/dish.model";
+import Cart from "../models/cart.model"
 
 /* obtener todos los platillos en cart */
-export async function getCartItems(_id) {
+export async function getCartItems(clerkId) {
     try {
         /* hacer la conexion */
         await mongoConnect();
 
         /* Busca al usuario por su id */
-        const user = await User.findById(_id);
+        const user = await User.findById(clerkId);
 
         if (!user || !user.cart) {
             throw new Error("No se encontró el carrito del usuario");
@@ -24,52 +25,38 @@ export async function getCartItems(_id) {
 }
 
 /* Añadir un platillo al carrito */
-export async function addDishToCart(_id, dishId) {
+export async function addDishToCart(dishId) {
     try {
-        /* Hacer la conexión */
-        await mongoConnect();
-        
-        /* Buscar el carrito del usuario actual (asumimos que ya se ha autenticado) */
-        const user = await User.findById(_id);
-        
+      await mongoConnect(); // Conectar a la base de datos
+
+      // Buscar al usuario 
+        const user = await User.findById();
         if (!user) {
-            throw new Error("No se encontró el usuario");
+            console.error("Usuario no encontrado con el id:", user);
+            throw new Error("Usuario no encontrado");
         }
-        // Verificar si el carrito existe en el usuario
-        if (!user.cart) {
-            // Si no existe, crear un carrito vacío
-            user.cart = [];
+
+        // Buscar el platillo por su ID
+        const dishToAdd = await Dish.findById(dishId);
+        if (!dishToAdd) {
+            throw new Error("El platillo no existe");
         }
-        
-        /* Verificar si el platillo ya está en el carrito */
-        const existingItem = user.cart.find(item => item.dishId.toString() === dishId.toString());
-        
-        /* Si el platillo ya está en el carrito, incrementar su cantidad */
-        if (existingItem) {
-            existingItem.quantity += 1;
-        } else {
-            /* Si el platillo no está en el carrito, agregarlo */
-            const dish = await Dish.findById(dishId);
-            if(!dish){
-                throw new Error(`El plato no encontrado`);
-            }
-            user.cart.push({ 
-                dishId: dish._id, 
-                quantity: 1, 
-                dishName: dish.name, 
-                dishImage: dish.image, 
-                dishPrice: dish.price, 
-                dishCategory: dish.category 
-            });
-        }
-        
-        /* Guardar el carrito actualizado en la base de datos */
-        await user.save();
-        
-        // Devolver los elementos del carrito actualizados
-        return user.cart;
+
+        // Añadir el plato al carrito del usuario
+        cart.items.push({
+            dishId: dishToAdd._id,
+            quantity: 1,
+            dishName: dishToAdd.name,
+            dishImage: dishToAdd.image,
+            dishPrice: dishToAdd.price,
+            dishCategory: dishToAdd.category
+        });
+
+        await cart.save();
+        return cart.items;
     } catch (error) {
-        console.error("Error al añadir un platillo al carrito:", error);
-        throw error;
+      console.error("Error al agregar plato al carrito:", error);
+    } finally {
+      console.clear(); // Limpiar la consola
     }
-}
+  }

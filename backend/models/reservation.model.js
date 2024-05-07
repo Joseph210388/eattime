@@ -4,32 +4,26 @@ import User from './user.model';
 const reservationSchema = new Schema({
     userId: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+        ref: 'User'
     },
     dishDetail: [{
         dishName: {
-            type: String,
-            required: true
+            type: String
         },
         quantity: {
-            type: Number,
-            required: true
+            type: Number
         }
         
     }],
     total_price: {
         type: Number,
-        required: true,
         min: 0
     },
     numberOfPeople: {
-        type: Number,
-        required: true
+        type: Number
     },
     date: {
-        type: Date,
-        required: true
+        type: Date
     }
 });
 
