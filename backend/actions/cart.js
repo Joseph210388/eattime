@@ -1,7 +1,8 @@
 'use server';
 import { mongoConnect } from "../connection";
 import Dish from "../models/dish.model";
-import Cart from "../models/cart.model"
+import Cart from "../models/cart.model";
+import User from "../models/user.model";
 
 /* crea un carrito */
 export async function createCart(userId){
@@ -22,7 +23,7 @@ export async function createCart(userId){
 
         /* crear un nuevo carrito asociado al usuario */
         console.log("Creando un nuevo carrito para el usuario...");
-        const cart = await Cart.create({userId: userId, items: []});
+        const cart = await Cart.create({userId: userId});
         console.log("Nuevo carrito creado:", cart);
 
         return JSON.parse(JSON.stringify(cart));

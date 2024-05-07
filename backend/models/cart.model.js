@@ -5,7 +5,6 @@ const CartSchema = new Schema({
         type: String,
         required: true
     },
-    
     items: [{
         dishId: {
             type: Schema.Types.ObjectId,
