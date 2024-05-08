@@ -127,3 +127,26 @@ export async function addDishToCart(userId, cartId, dishId) {
       throw new Error('Error al añadir el platillo al carrito.');
     }
   }
+
+// Elimina un platillo del carrito
+export async function deleteCartItem(userId, dishId) {
+  try {
+      // Encuentra el carrito del usuario por userId
+      const cart = await Cart.findOne({ userId });
+
+      // Si no se encuentra el carrito, lanza un error
+      if (!cart) {
+          throw new Error("Carrito no encontrado.");
+      }
+
+      // Elimina el platillo del carrito
+      const updatedItems = cart.items.filter(item => String(item.dishId) !== dishId);
+      cart.items = updatedItems;
+      await cart.save();
+
+      return true; // Indica que se eliminó el platillo correctamente
+  } catch (error) {
+      console.error("Error al eliminar el platillo del carrito:", error);
+      throw new Error("Error al eliminar el platillo del carrito.");
+  }
+}
