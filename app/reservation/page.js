@@ -43,14 +43,27 @@ export default function Reservation(){
                                 <ul>
                                     {reservations.map((reservation, index) => (
                                         <li key={index}>
-                                            <div className="w-fit border border-red-500 rounded-xl p-4">
-                                                <p className="font-bold">Id: <span className="text-gray-500">{user?.id}</span></p>
-                                                <p className="font-bold">Cliente: <span className="text-gray-500">{user?.firstName} {user?.lastName}</span></p>
-                                                <p className="font-bold">Precio: </p><span>{reservation.total_price}€</span>
-                                                <p>Fecha: {reservation. reservationDate.slice(0, 10)}</p>
-                                                <p>Hora: {reservation.reservationTime}</p>
-                                                <p>Personas: {reservation.numberOfPeople}</p>
-                                                {/* Mostrar otros detalles de la reserva según sea necesario */}
+                                            <div className="w-fit flex gap-12 bg-white border border-red-500 rounded-xl p-4">
+                                                <div>
+                                                        <p className="font-bold">Id: </p><span className="text-gray-500 font-bold">{reservation._id}</span>
+                                                        <p className="font-bold">Nombre del Cliente: </p><span className="font-bold text-gray-500">{user?.firstName} {user?.lastName}</span>
+                                                        <p className="font-bold">Platillos:</p>
+                                                    <ul>
+                                                        {reservation.dishDetail.map((dish, dishIndex) => (
+                                                            <li key={dishIndex} className="flex gap-2 items-center">
+                                                                <p className="text-sm">{dish.quantity}X </p><p>{dish.dishName} </p>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                                <div className="text-right">
+                                                    <p className="font-bold">Precio: </p><span>{reservation.total_price}€</span>
+                                                    <div>
+                                                        <p className="font-bold">Fecha y Hora: </p><p>{reservation. reservationDate.slice(0, 10)} </p><span>{reservation.reservationTime}</span>
+                                                    </div>
+                                                    <p className="font-bold">Personas:</p> <span>{reservation.numberOfPeople}</span>
+                                                    {/* Mostrar otros detalles de la reserva según sea necesario */}
+                                                </div>
                                             </div>
                                         </li>
                                     ))}
