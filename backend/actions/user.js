@@ -16,3 +16,16 @@ export async function createUser (user){
     }
 }
 
+/* Función para obtener todos los datos de un usuario por su clerkId */
+export async function getUserByClerkId(clerkId) {
+    try {
+        /* hacer la conexion */
+        await mongoConnect();
+        /* buscar el usuario por su clerkId */
+        const user = await User.findOne({ clerkId });
+
+        return user; // Devolver el usuario encontrado
+    } catch (error) {
+        console.log(error);
+    }
+}

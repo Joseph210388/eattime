@@ -1,10 +1,9 @@
 import { Schema, model, models } from "mongoose";
-import User from './user.model';
 
 const reservationSchema = new Schema({
     userId: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
+        type: String,
+        required: true
     },
     dishDetail: [{
         dishName: {
@@ -19,11 +18,13 @@ const reservationSchema = new Schema({
         type: Number,
         min: 0
     },
-    numberOfPeople: {
-        type: Number
+    reservationDate: {
+        type: Date, 
+        required: true
     },
-    date: {
-        type: Date
+    reservationTime: {
+        type: String, 
+        required: true
     }
 });
 
