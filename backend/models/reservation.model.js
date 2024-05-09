@@ -25,6 +25,11 @@ const reservationSchema = new Schema({
     reservationTime: {
         type: String, 
         required: true
+    },
+    numberOfPeople:{
+        type:Number,
+        default :1,
+        required: true
     }
 });
 

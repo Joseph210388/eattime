@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { getCartItems, deleteCartItem} from "../../backend/actions/cart";
 import { useUser } from "@clerk/nextjs";
-
+import {createReservation} from "../../backend/actions/reservation";
+;
 
 
 export default function Cart(){
@@ -15,6 +16,7 @@ export default function Cart(){
     const [reservationDate, setReservationDate] = useState('');
     const [reservationTime, setReservationTime] = useState('');
     const [numberOfPeople, setNumberOfPeople] = useState(1);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     
     useEffect(() => {
         async function fetchCartItems() {
@@ -77,13 +79,32 @@ export default function Cart(){
             console.error("Error al eliminar el platillo del carrito:", error);
         }
     };
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log('Datos del formulario:', {
-            reservationDate,
-            reservationTime,
-            numberOfPeople,
-        });
+    const handleSubmit = async (event) => {
+        try {
+            setIsSubmitting(true);
+            const formattedDishDetail = cartItems.map(item => ({
+                dishName: item.dishName,
+                quantity: item.quantity
+            }));
+            const reservation = await createReservation(
+                userId,
+                formattedDishDetail,
+                totalPrice,
+                reservationDate,
+                reservationTime,
+                numberOfPeople
+            );
+            console.log('Reserva creada:',reservation);
+            window.location.href = '../reservation/page.js';
+        } catch (error) {
+            console.error('Error al crear la reserva:',error);
+        }
+    };
+    const handlePaymentClick = () => {
+        const isConfirmed = window.confirm('¿Estás seguro de que deseas realizar el pago?');
+        if (isConfirmed) {
+            handleSubmit(); // Llama a handleSubmit si la confirmación es true
+        }
     };
 
     return(
@@ -233,7 +254,14 @@ export default function Cart(){
                         </div>
                         <hr className="w-full h-0.5 bg-gray-300 my-2"/>
                         <p className="text-xl font-medium">Precio Total: {totalPrice}€</p>
-                        <button type="submit" className="bg-red-700 text-white p-2 rounded">Pagar</button>
+                        <button
+                            type="submit"
+                            className="bg-red-700 text-white p-2 rounded"
+                            onClick={handlePaymentClick} // Llama a handlePaymentClick en lugar de handleSubmit directamente
+                            disabled={isSubmitting} // Deshabilita el botón mientras se está procesando la solicitud
+                        >
+                            {isSubmitting ? 'Procesando...' : 'Pagar'}
+                        </button>
                     </form>
                 </div>
             </div>
