@@ -34,32 +34,31 @@ export default function About(){
         <section className="bg-stone-800">
             <div className="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 md:py-16 lg:px-8">
                 <div className="mx-auto max-w-3xl text-center">
-                <h2 className="text-3xl font-bold text-white sm:text-4xl">Trusted by eCommerce Businesses</h2>
+                <h2 className="text-3xl font-bold text-white sm:text-4xl">Confiado por Amantes de la Gastronomía Peruana</h2>
 
                 <p className="mt-4 text-white sm:text-xl">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione dolores laborum labore
-                    provident impedit esse recusandae facere libero harum sequi.
+                Descubre la auténtica experiencia culinaria del Perú con nosotros. Desde los sabores tradicionales hasta las creaciones más innovadoras, estamos comprometidos a llevar lo mejor de la cocina peruana a tu mesa.
                 </p>
                 </div>
 
                 <div className="mt-8 sm:mt-12">
                 <dl className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:divide-x sm:divide-gray-100">
                     <div className="flex flex-col px-4 py-8 text-center">
-                    <dt className="order-last text-lg font-medium text-white">Total Sales</dt>
+                    <dt className="order-last text-lg font-medium text-white">Empleados</dt>
 
-                    <dd className="text-4xl font-extrabold text-red-600 md:text-5xl">$4.8m</dd>
+                    <dd className="text-4xl font-extrabold text-red-600 md:text-5xl">50</dd>
                     </div>
 
                     <div className="flex flex-col px-4 py-8 text-center">
-                    <dt className="order-last text-lg font-medium text-white">Official Addons</dt>
+                    <dt className="order-last text-lg font-medium text-white">Locales</dt>
 
-                    <dd className="text-4xl font-extrabold text-red-600 md:text-5xl">24</dd>
+                    <dd className="text-4xl font-extrabold text-red-600 md:text-5xl">5</dd>
                     </div>
 
                     <div className="flex flex-col px-4 py-8 text-center">
-                    <dt className="order-last text-lg font-medium text-white">Total Addons</dt>
+                    <dt className="order-last text-lg font-medium text-white">Clientes</dt>
 
-                    <dd className="text-4xl font-extrabold text-red-600 md:text-5xl">86</dd>
+                    <dd className="text-4xl font-extrabold text-red-600 md:text-5xl">1000 +</dd>
                     </div>
                 </dl>
                 </div>

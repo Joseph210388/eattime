@@ -150,3 +150,24 @@ export async function deleteCartItem(userId, dishId) {
       throw new Error("Error al eliminar el platillo del carrito.");
   }
 }
+// Elimina todos los productos del carrito del usuario
+export async function deleteAllCartItems(userId) {
+  try {
+      // Encuentra el carrito del usuario por su ID
+      const cart = await Cart.findOne({ userId });
+
+      // Si no se encuentra el carrito, lanza un error
+      if (!cart) {
+          throw new Error("Carrito no encontrado.");
+      }
+
+      // Establece el arreglo de ítems como vacío para eliminar todos los productos del carrito
+      cart.items = [];
+      await cart.save();
+
+      return true; // Indica que se eliminaron todos los productos del carrito correctamente
+  } catch (error) {
+      console.error('Error al eliminar todos los productos del carrito:', error);
+      throw new Error('Error al eliminar todos los productos del carrito.');
+  }
+}

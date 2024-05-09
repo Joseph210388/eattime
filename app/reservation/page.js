@@ -26,7 +26,7 @@ export default function Reservation(){
 
     return(
         <>
-            <div className="bg-stone-200 lg:h-screen p-3 md:p-10">
+            <div className="bg-stone-200 min-h-screen p-3 md:p-10">
                 <span className="flex items-center">
                     <span className="h-px flex-1 bg-red-700"></span>
                         <h1 className="text-3xl mb-2 font-semibold px-6">
@@ -34,15 +34,14 @@ export default function Reservation(){
                         </h1>
                     <span className="h-px flex-1 bg-red-700"></span>
                 </span>
-
-                    <div className="flex flex-col pt-6 lg:flex-row ">
-                        <div className="lg:w-3/5 lg:px-12 py-8 lg:py-3">
+                    <div className="flex flex-col w-full pt-6 lg:flex-row p-2">
+                        <div className="lg:w-4/6 lg:px-12 py-8 lg:py-3">
                             {reservations.length === 0 ? (
                                 <p>No tienes reservas.</p>
                             ) : (
                                 <ul>
                                     {reservations.map((reservation, index) => (
-                                        <li key={index}>
+                                        <li key={index} className="pt-4">
                                             <div className="w-fit flex gap-12 bg-white border border-red-500 rounded-xl p-4">
                                                 <div>
                                                         <p className="font-bold">Id: </p><span className="text-gray-500 font-bold">{reservation._id}</span>
@@ -69,6 +68,13 @@ export default function Reservation(){
                                     ))}
                                 </ul>
                             )}
+                        </div>
+                        <div className="lg:w-2/6">
+                            <div className="bg-red-500 rounded-xl p-5 text-white flex flex-col gap-3">
+                                <p>Estimado cliente, {user?.firstName} {user?.lastName}</p>
+                                <p>Recuerda que una vez confirmada, tu reserva no puede ser cancelada, editada o cambiada de fecha. Si necesitas ayuda, contáctanos al 234-76-78-00</p>
+                                <p>Gracias por tu comprensión.</p>
+                            </div>
                         </div>
                     </div>
 

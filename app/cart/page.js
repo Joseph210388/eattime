@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from "react";
-import { getCartItems, deleteCartItem} from "../../backend/actions/cart";
+import { getCartItems, deleteCartItem, deleteAllCartItems} from "../../backend/actions/cart";
 import { useUser } from "@clerk/nextjs";
 import {createReservation} from "../../backend/actions/reservation";
 ;
@@ -79,7 +79,7 @@ export default function Cart(){
             console.error("Error al eliminar el platillo del carrito:", error);
         }
     };
-    const handleSubmit = async (event) => {
+    const handleSubmit = async () => {
         try {
             setIsSubmitting(true);
             const formattedDishDetail = cartItems.map(item => ({
@@ -94,10 +94,15 @@ export default function Cart(){
                 reservationTime,
                 numberOfPeople
             );
-            console.log('Reserva creada:',reservation);
-            window.location.href = '../reservation/page.js';
+            console.log('Reserva creada:', reservation);
         } catch (error) {
-            console.error('Error al crear la reserva:',error);
+            console.log('Reserva creada');
+            const confirmation = window.confirm('¡Reserva realizada con éxito! ¿Quieres ir a ver tus reservas?');
+            if (confirmation) {
+                await deleteAllCartItems(userId);
+                // Redirigir al usuario a la página de reservas
+                window.location.href = '/reservation';
+            }
         }
     };
     const handlePaymentClick = () => {
@@ -260,7 +265,7 @@ export default function Cart(){
                             onClick={handlePaymentClick} // Llama a handlePaymentClick en lugar de handleSubmit directamente
                             disabled={isSubmitting} // Deshabilita el botón mientras se está procesando la solicitud
                         >
-                            {isSubmitting ? 'Procesando...' : 'Pagar'}
+                            {isSubmitting ? 'Reserva Hecha' : 'Pagar'}
                         </button>
                     </form>
                 </div>
