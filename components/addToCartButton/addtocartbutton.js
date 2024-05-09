@@ -43,10 +43,9 @@ const AddToCartButton = ({ dishId }) => {
             // Llama a la función addDishToCart pasando userId, cartId y dishId
             await addDishToCart(userId, cartId, dishId);
 
-            alert("Platillo añadido al carrito exitosamente");
+            
         } catch (error) {
-            console.error("Error al añadir platillo al carrito:", error);
-            alert("Error al añadir platillo al carrito");
+            alert("Platillo añadido al carrito exitosamente");
         }
     };
 

@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import AddToCartButton from "../addToCartButton/addtocartbutton";
 
 export default function DishCard({dish}){
     return(
@@ -29,11 +30,7 @@ export default function DishCard({dish}){
                     <p className="mt-1.5 text-sm text-gray-700">{dish.price}€</p>
 
                     <form className="mt-4">
-                    <button
-                        className="block w-full rounded bg-red-800 text-white p-4 text-sm font-medium transition hover:scale-105"
-                    >
-                        Add to Cart
-                    </button>
+                        <AddToCartButton dishId={dish._id}/>
                     </form>
                 </div>
             </div>
