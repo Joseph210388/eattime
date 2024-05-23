@@ -79,32 +79,8 @@ const Navbar = () => {
               </div>
             </div>
           </div>
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 gap-2">
-            <a
-              type="button" href="/cart" className="relative rounded-full bg-stone-800 p-1 text-stone-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-            >
-              <span className="absolute -inset-1.5"></span>
-              <span className="sr-only">View cart</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M1 1h4l2.964 11.853a2 2 0 002.024 1.476h8.011a2 2 0 002.023-1.476L23 5H7m7 6v4m-4-4v4m8-4v6h5V7h-7m2 10h7v2H8v-2h6z" />
-              </svg>
-            </a>
-            <a href='/reservation' type='button' className='relative rounded-full bg-stone-800 p-1 text-stone-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'>
-              <span className="absolute -inset-1.5"></span>
-              <span className="sr-only">View reservation</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-calendar" viewBox="0 0 16 16">
-                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
-              </svg>
-            </a>
-
+          <div className="absolute inset-y-0 right-0 flex  pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 ">
+           
             {/* Aquí puedes poner el botón para iniciar sesión */}
             <div className='flex items-center gap-2'>
               {!user && (
@@ -118,7 +94,31 @@ const Navbar = () => {
                 </>
               )}
               {user && (
-                <div className='ml-auto'>
+                  <div className='flex items-center ml-auto gap-2'>
+                    <a
+                      type="button" href="/cart" className="relative rounded-full bg-stone-800 p-1 text-stone-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    >
+                      <span className="absolute -inset-1.5"></span>
+                      <span className="sr-only">View cart</span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="1.5"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M1 1h4l2.964 11.853a2 2 0 002.024 1.476h8.011a2 2 0 002.023-1.476L23 5H7m7 6v4m-4-4v4m8-4v6h5V7h-7m2 10h7v2H8v-2h6z" />
+                      </svg>
+                    </a>
+                    <a href='/reservation' type='button' className='relative rounded-full bg-stone-800 p-1 text-stone-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'>
+                      <span className="absolute -inset-1.5"></span>
+                      <span className="sr-only">View reservation</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-calendar" viewBox="0 0 16 16">
+                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                      </svg>
+                    </a>
                   <UserButton/>
                 </div>
               )}

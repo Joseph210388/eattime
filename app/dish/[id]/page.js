@@ -20,14 +20,14 @@ const DishDetailPage= async({params: {id}}) => {
                     Back to all dishes
                 </a>
             </div>
-            <section className="text-gray-700 body-font overflow-hidden bg-white">
+            <section className="text-gray-700 body-font overflow-hidden">
                 <div className="px-5 py-4 mx-auto sm:px-2">
                     <div className="lg:w-4/5 mx-auto flex flex-wrap">
                         <img
                             src={dish.image}
-                            className="lg:w-1/2 w-full object-cover object-center rounded-xl border border-gray-200"
+                            className="lg:w-1/2 w-full object-cover object-center rounded-xl xl:rounded-l-xl xl:rounded-r-none border border-gray-200"
                         />
-                        <div className="lg:w-1/2 w-full lg:pl-14 lg:py-6 mt-6 lg:mt-0 flex flex-col gap-4">
+                        <div className="lg:w-1/2 w-full p-4 lg:pl-14 lg:py-6 mt-6 lg:mt-0 flex flex-col gap-4 rounded-xl xl:rounded-r-xl xl:rounded-l-none bg-white">
                             <h2 className="whitespace-nowrap rounded-xl bg-red-800 text-white px-3 py-1.5 text-xs font-medium w-fit">{dish.category}</h2>
                             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{dish.name}</h1>
                             <p className="leading-relaxed">{dish.description}</p>
