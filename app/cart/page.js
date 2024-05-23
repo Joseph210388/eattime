@@ -4,11 +4,8 @@ import React, { useEffect, useState } from "react";
 import { getCartItems, deleteCartItem, deleteAllCartItems} from "../../backend/actions/cart";
 import { useUser } from "@clerk/nextjs";
 import {createReservation} from "../../backend/actions/reservation";
-;
 
-
-export default function Cart(){
-
+export default function Cart() {
     const [cartItems, setCartItems] = useState([]);
     const { user } = useUser();
     const userId = user?.id;
@@ -16,7 +13,12 @@ export default function Cart(){
     const [reservationDate, setReservationDate] = useState('');
     const [reservationTime, setReservationTime] = useState('');
     const [numberOfPeople, setNumberOfPeople] = useState(1);
+    const [cardName, setCardName] = useState('');
+    const [cardNumber, setCardNumber] = useState('');
+    const [expirationDate, setExpirationDate] = useState('');
+    const [securityCode, setSecurityCode] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isFormValid, setIsFormValid] = useState(false);
     
     useEffect(() => {
         async function fetchCartItems() {
@@ -33,14 +35,14 @@ export default function Cart(){
     }, [userId]); 
     
     // Ahora el useEffect se ejecuta cuando cambia cartItems, pero no en el montaje inicial
-    const calculateTotalPriceDish =(dishPrice, quantity) =>{
-        return (dishPrice  * quantity).toFixed(2);
+    const calculateTotalPriceDish = (dishPrice, quantity) => {
+        return (dishPrice * quantity).toFixed(2);
     };
-   // Función para aumentar la cantidad de un platillo
+
+    // Función para aumentar la cantidad de un platillo
     const increaseQuantity = (index) => {
         const updatedCartItems = [...cartItems];
         if (updatedCartItems[index].quantity < 10) { 
-            // Verifica si la cantidad actual es menor que 10
             updatedCartItems[index].quantity++;
             setCartItems(updatedCartItems);
         }
@@ -50,7 +52,6 @@ export default function Cart(){
     const decreaseQuantity = (index) => {
         const updatedCartItems = [...cartItems];
         if (updatedCartItems[index].quantity > 1) { 
-            // Verifica si la cantidad actual es mayor que 1
             updatedCartItems[index].quantity--;
             setCartItems(updatedCartItems);
         }
@@ -69,17 +70,24 @@ export default function Cart(){
         });
         setTotalPrice(total.toFixed(2));
     }, [cartItems]);
-    ///funcion para eliminar el producto
+
+    // Verificar si todos los campos del formulario están completos
+    useEffect(() => {
+        const isFormComplete = reservationDate && reservationTime && numberOfPeople && cardName && cardNumber && expirationDate && securityCode;
+        setIsFormValid(isFormComplete);
+    }, [reservationDate, reservationTime, numberOfPeople, cardName, cardNumber, expirationDate, securityCode]);
+
     const handleDeleteItem = (itemId) => {
         try {
-            // Eliminar el elemento del carrito
             deleteCartItem(userId, itemId);
             window.location.reload();
         } catch (error) {
             console.error("Error al eliminar el platillo del carrito:", error);
         }
     };
-    const handleSubmit = async () => {
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         try {
             setIsSubmitting(true);
             const formattedDishDetail = cartItems.map(item => ({
@@ -100,15 +108,16 @@ export default function Cart(){
             const confirmation = window.confirm('¡Reserva realizada con éxito! ¿Quieres ir a ver tus reservas?');
             if (confirmation) {
                 await deleteAllCartItems(userId);
-                // Redirigir al usuario a la página de reservas
                 window.location.href = '/reservation';
             }
         }
     };
-    const handlePaymentClick = () => {
+
+    const handlePaymentClick = (e) => {
+        e.preventDefault();
         const isConfirmed = window.confirm('¿Estás seguro de que deseas realizar el pago?');
         if (isConfirmed) {
-            handleSubmit(); // Llama a handleSubmit si la confirmación es true
+            handleSubmit(e); // Llama a handleSubmit y pasa el evento correctamente
         }
     };
 
@@ -131,9 +140,7 @@ export default function Cart(){
                                 <li key={index}>
                                     <div className="flex items-center justify-between border-b border-gray-300 py-2">
                                         <div className="flex gap-4">
-                                            {/* boton para aumentar o disminuir la cantidad */}
                                             <div className="flex gap-3 items-center">
-                                                {/* Botones para aumentar o disminuir la cantidad */}
                                                 <button className="bg-red-700 text-white p-2 text-lg rounded-l-lg" onClick={() => decreaseQuantity(index)}>-</button>
                                                 <span>{items.quantity}</span>
                                                 <button className="bg-red-700 text-white p-2 text-lg rounded-r-lg" onClick={() => increaseQuantity(index)}>+</button>
@@ -150,7 +157,7 @@ export default function Cart(){
                                         </div>
                                         <div className="flex items-center gap-4">
                                             <p className="text-gray-900">
-                                                {calculateTotalPriceDish(items.dishPrice, items.quantity)}€</p> {/* Pasar dishPrice y quantity como argumentos */}
+                                                {calculateTotalPriceDish(items.dishPrice, items.quantity)}€</p>
                                             <button className="bg-red-700 p-2 rounded-lg" onClick={() => handleDeleteItem(items.dishId)}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="text-white bi bi-trash3-fill" viewBox="0 0 16 16">
                                             <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
                                             </svg></button>
@@ -158,24 +165,17 @@ export default function Cart(){
                                     </div>
                                 </li>
                             ))}
-                                <div className="pt-5 flex justify-end">
-                                    {/* poner el total de todos los platillos que estan en el carrito */}
-                                    <h5 className="text-xl">Precio Total: {totalPrice}€</h5>
-                                </div>
                         </ul>
                     )}
-
                 </div>
                 <div className="border-t lg:border-l lg:border-t-0 border-red-700 lg:w-2/5 lg:px-12 py-8 lg:py-3">
                     <h3 className="text-2xl font-bold">Resumen de la Reserva</h3>
-                    {/* aqui poner el formulario de pago */}
                     <hr className="w-full h-0.5 bg-gray-300 my-2" />
                     <form onSubmit={handleSubmit} className="flex flex-col gap-3 m-2">
                         <p className="font-bold">Id: <span className="text-gray-500">{user?.id}</span></p>
                         <p className="font-bold">Cliente: <span className="text-gray-500">{user?.firstName} {user?.lastName}</span></p>
                         <p className="font-bold">Complete los datos:</p>
                         <div className="flex gap-2 items-center">
-                        {/* Hora y fecha de la reserva */}
                             <div className="flex flex-col">
                                 <label htmlFor="reservationTime" className="font-bold">Hora:</label>
                                 <input
@@ -184,8 +184,8 @@ export default function Cart(){
                                     id="reservationTime"
                                     value={reservationTime}
                                     onChange={(e) => setReservationTime(e.target.value)}
-                                    min="12:00" // Establecer el valor mínimo como las 12 del mediodía
-                                    max="23:59" // Establecer el valor máximo como las 11:59 de la noche
+                                    min="12:00"
+                                    max="23:59"
                                     required
                                 />
                             </div>
@@ -217,11 +217,13 @@ export default function Cart(){
                         <p className="text-red-700 text-sm">Horario disponible: 12:00 - 23:59</p>
                         <hr className="w-full h-0.5 bg-gray-300 my-2"/>
                         <div className="flex flex-col">
-                            <label htmlFor="cardNumber" className="font-bold">Nombre del Propietario:</label>
+                            <label htmlFor="cardName" className="font-bold">Nombre del Propietario:</label>
                             <input
                                 className="w-100 h-6 p-2 rounded"
                                 type="text"
                                 id="cardName"
+                                value={cardName}
+                                onChange={(e) => setCardName(e.target.value)}
                                 required
                             />
                         </div>
@@ -231,39 +233,44 @@ export default function Cart(){
                                 className="w-100 h-6 p-2 rounded"
                                 type="number"
                                 id="cardNumber"
+                                value={cardNumber}
+                                onChange={(e) => setCardNumber(e.target.value)}
                                 required
                             />
                         </div>
                         <div className="flex gap-2">
-                            <div className="flex flex-col gap-2 ">
+                            <div className="flex flex-col gap-2">
                                 <label htmlFor="expirationDate" className="font-bold">Fecha de Caducidad:</label>
                                 <input
                                     className="w-fit h-6 rounded p-2"
                                     type="month"
                                     id="expirationDate"
+                                    value={expirationDate}
+                                    onChange={(e) => setExpirationDate(e.target.value)}
                                     required
                                 />
                             </div>
                             <div className="flex flex-col gap-2">
                                 <label htmlFor="securityCode" className="font-bold">CVV:</label>
                                 <input
-                                 className="w-12 h-6 rounded p-2"
+                                    className="w-12 h-6 rounded p-2"
                                     type="text"
                                     id="securityCode"
-                                    pattern="[a-zA-Z]{3}"
+                                    pattern="\d{3}"
                                     maxLength="3"
+                                    value={securityCode}
+                                    onChange={(e) => setSecurityCode(e.target.value)}
                                     required
                                 />
                             </div>
-                            <hr />
                         </div>
                         <hr className="w-full h-0.5 bg-gray-300 my-2"/>
                         <p className="text-xl font-medium">Precio Total: {totalPrice}€</p>
                         <button
                             type="submit"
                             className="bg-red-700 text-white p-2 rounded"
-                            onClick={handlePaymentClick} // Llama a handlePaymentClick en lugar de handleSubmit directamente
-                            disabled={isSubmitting} // Deshabilita el botón mientras se está procesando la solicitud
+                            onClick={handlePaymentClick}
+                            disabled={!isFormValid || isSubmitting}
                         >
                             {isSubmitting ? 'Reserva Hecha' : 'Pagar'}
                         </button>

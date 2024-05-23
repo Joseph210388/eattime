@@ -22,7 +22,7 @@ export default function Home() {
           <Image src={Logo} width={60} height={70} className="m-5" alt="TayPay Logo" />
           <h1 className="text-5xl font-bold leading-tight mb-4">Explosión de sabores de Perú</h1>
           <h2 className="text-2xl font-bold leading-tight mb-4">Delicia Peruana</h2>
-          <p className="text-lg text-gray-300 mb-8">Sabor a la tradición, en el corazón del Amazonas.</p>
+          <p className="text-lg text-gray-300 mb-8">Sabor a la tradición</p>
           <a href="/food" className="bg-red-700 text-white-900 hover:bg-white hover:text-black py-2 px-6 rounded-full text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg">Haz tu Reserva</a>
         </div>
       </div>
