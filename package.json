@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@clerk/nextjs": "^5.7.5",
+    "@clerk/nextjs": "^6.39.0",
     "date-fns": "^3.6.0",
     "mongodb": "^6.21.0",
     "mongoose": "^8.23.0",
@@ -17,7 +17,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.5.0",
-    "svix": "^1.86.0"
+    "svix": "^1.86.0",
+    "use-sync-external-store": "^1.6.0"
   },
   "devDependencies": {
     "@types/node": "20.19.35",
